@@ -1,32 +1,34 @@
-# Docker Hub RSS
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-[![Build Status](https://travis-ci.org/TheConnMan/docker-hub-rss.svg?branch=master)](https://travis-ci.org/TheConnMan/docker-hub-rss) [![Docker Pulls](https://img.shields.io/docker/pulls/theconnman/docker-hub-rss.svg)](https://hub.docker.com/r/theconnman/docker-hub-rss/)
+## Getting Started
 
-RSS feed for Docker Hub images
-
-## Why?
-
-Docker Hub doesn't provide notifications for new image releases, so **Docker Hub RSS** turns image tags into an RSS feed for easy consumption. Subscribe using [Slack RSS](https://slack.com/apps/new/A0F81R7U7-rss), [Feedly](https://feedly.com/), or any other RSS feed reader to get notified when a new image is published.
-
-## Quickstart
-
-Run with Docker by executing: `docker run -d -p 3000:3000 --name=docker-hub-rss theconnman/docker-hub-rss:latest`
-
-To use point an RSS feed reader to `http://<url>:3000/<docker-hub-user>/<docker-hub-repo>.atom`. The easiest way to create a publically accessible endpoint for an RSS reader is to use [Localtunnel](https://localtunnel.github.io/) to proxy a public location to your local **Docker Hub RSS** instance.
-
-## Local Development
-
-To develop locally run the following:
+First, run the development server:
 
 ```bash
-npm i -g vercel
-git clone https://github.com/TheConnMan/docker-hub-rss.git
-cd docker-hub-rss
-yarn install
-vercel dev
+npm run dev
+# or
+yarn dev
 ```
 
-## Environment Variables
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-- **FLUENTD_HOST** (Optional) Fluent host for logging
-- **FLUENTD_TAGS** (Optional) Add FluentD context tags (format is tag:value,tag2:value2)
+You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
