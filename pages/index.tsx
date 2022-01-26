@@ -7,7 +7,8 @@ import { FeedPreview } from "../components/FeedPreview";
 import Form from "../components/Form";
 import { useClipboard } from "@mantine/hooks";
 import { useRouter } from "next/router";
-import { buildUrl, DockerHubFilterParams } from "../lib/utils";
+import { buildUrl } from "../lib/utils";
+import { DockerHubFilterParams } from "../lib/types";
 
 type HomeProps = {
   initialParams: DockerHubFilterParams;

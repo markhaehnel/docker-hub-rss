@@ -29,10 +29,20 @@ const Layout: React.FC = ({ children }) => {
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
+        <meta charSet="utf-8" />
         <meta
           name="description"
           content="RSS feeds for Docker Hub images. Subscribe using Slack RSS, Feedly, or any other RSS feed reader to get notified when a new image is published."
         />
+
+        <meta property="og:url" content="https://docker-hub-rss.ezhub.de/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Docker Hub RSS" />
+        <meta
+          property="og:description"
+          content="RSS feeds for Docker Hub images. Subscribe using Slack RSS, Feedly, or any other RSS feed reader to get notified when a new image is published."
+        />
+        <meta property="og:image" content="" />
       </Head>
       <AppShell
         padding="md"

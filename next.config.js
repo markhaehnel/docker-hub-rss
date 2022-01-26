@@ -4,6 +4,7 @@ module.exports = {
   experimental: {
     outputStandalone: true,
   },
+  poweredByHeader: false,
   async rewrites() {
     return [
       {

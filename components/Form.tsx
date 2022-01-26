@@ -1,6 +1,6 @@
 import { Group, TextInput } from "@mantine/core";
 import { useEffect, useState } from "react";
-import { DockerHubFilterParams } from "../lib/utils";
+import { DockerHubFilterParams } from "../lib/types";
 
 type FormProps = {
   initialParams?: DockerHubFilterParams;

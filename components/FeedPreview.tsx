@@ -17,11 +17,13 @@ type FeedPreviewProps = {
   url: string;
 };
 
+const PAGE_SIZE = 15;
+
 const FeedPreview: React.FC<FeedPreviewProps> = ({ url }) => {
   const [error, setError] = useState(false);
   const [feed, setFeed] = useState<FeedResponse>();
   const [loading, setLoading] = useState(false);
-  const [activePage, setPage] = useState(1);
+  const [activePage, setActivePage] = useState(0);
   const [feedPreviewUrl, setFeedPreviewUrl] = useState("");
 
   useEffect(() => {
@@ -78,20 +80,23 @@ const FeedPreview: React.FC<FeedPreviewProps> = ({ url }) => {
             }
           >
             {feed.rss.channel.item
-              ?.slice(activePage, activePage + 15)
+              ?.slice(
+                activePage * PAGE_SIZE,
+                activePage * PAGE_SIZE + PAGE_SIZE
+              )
               .map((item) => {
                 return (
                   <List.Item key={item.guid.__text}>{item.title}</List.Item>
                 );
               })}
           </List>
-          {feed.rss.channel.item?.length > 15 && (
+          {feed.rss.channel.item?.length > PAGE_SIZE && (
             <Pagination
               grow
               withControls={false}
               page={activePage}
-              onChange={setPage}
-              total={Math.ceil(feed.rss.channel.item.length / 15)}
+              onChange={setActivePage}
+              total={Math.floor(feed.rss.channel.item.length / PAGE_SIZE)}
             />
           )}
         </Group>

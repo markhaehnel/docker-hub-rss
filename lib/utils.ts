@@ -1,14 +1,5 @@
 import X2JS from "x2js";
-import { FeedResponse } from "./types";
-
-export type DockerHubFilterParams = {
-  username: string;
-  repository: string;
-  include?: string;
-  exclude?: string;
-  includeRegex?: string;
-  excludeRegex?: string;
-};
+import { DockerHubFilterParams, FeedResponse } from "./types";
 
 const buildUrl = ({
   username,
@@ -33,15 +24,6 @@ const buildUrl = ({
   return url.toString();
 };
 
-const extractFilterParamsFromHashString = (
-  hash: string
-): DockerHubFilterParams | null => {
-  if (!hash && hash !== "") return null;
-  const filteredHash = Buffer.from(hash.replace("#", ""), "base64").toString();
-  console.log({ filteredHash });
-  return JSON.parse(filteredHash) as DockerHubFilterParams;
-};
-
 const fetchFeed = async (feedUrl: string): Promise<FeedResponse> => {
   const response = await fetch(feedUrl);
   if (response.status >= 400) throw new Error("Failed to fetch feed");
@@ -49,4 +31,4 @@ const fetchFeed = async (feedUrl: string): Promise<FeedResponse> => {
   return new X2JS().xml2js(body);
 };
 
-export { buildUrl, extractFilterParamsFromHashString, fetchFeed };
+export { buildUrl, fetchFeed };
