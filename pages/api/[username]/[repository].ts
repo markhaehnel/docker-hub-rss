@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getFilteredTags } from "../../../lib/api/api";
 import { HttpError } from "../../../lib/error";
 import { formatRss } from "../../../lib/formatRss";
+import { getFilteredTags } from "../../../lib/getFilteredTags";
 import { parseQuery } from "../../../lib/parseQuery";
 
 const getFeed = async (req: NextApiRequest, res: NextApiResponse) => {

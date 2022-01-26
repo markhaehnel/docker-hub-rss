@@ -1,6 +1,6 @@
 import RSS from "rss";
+import { API_BASE_URL } from "./api/base";
 import { RepositoryResponse, Tag } from "./api/types";
-import { API_BASE_URL } from "./api/api";
 
 const formatRss = (repository: RepositoryResponse, tags: Tag[]) => {
   const { user, name: repoName, description } = repository;
