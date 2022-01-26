@@ -63,7 +63,15 @@ const getAllTags = async (
   const mergedTags = [
     ...firstResponse.results,
     ...pagedResponses.flatMap((x) => x.results),
-  ];
+  ].sort((a: Tag, b: Tag): number => {
+    if (a.name === "latest") return -1;
+    if (b.name === "latest") return 1;
+
+    return (
+      new Date(b.tag_last_pushed).getTime() -
+      new Date(a.tag_last_pushed).getTime()
+    );
+  });
 
   return mergedTags;
 };

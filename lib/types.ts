@@ -1,17 +1,19 @@
+type FeedResponseItem = {
+  title: string;
+  description: string;
+  link: string;
+  pubDate: string;
+  guid: {
+    __text: string;
+  };
+};
+
 type FeedResponse = {
   rss: {
     channel: {
       title: string;
       description: string;
-      item: {
-        title: string;
-        description: string;
-        link: string;
-        pubDate: string;
-        guid: {
-          __text: string;
-        };
-      }[];
+      item: FeedResponseItem | FeedResponseItem[];
     };
   };
 };

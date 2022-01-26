@@ -20,7 +20,7 @@ type FeedPreviewProps = {
 const PAGE_SIZE = 15;
 
 const FeedPreview: React.FC<FeedPreviewProps> = ({ url }) => {
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
   const [feed, setFeed] = useState<FeedResponse>();
   const [loading, setLoading] = useState(false);
   const [activePage, setActivePage] = useState(0);
@@ -29,13 +29,13 @@ const FeedPreview: React.FC<FeedPreviewProps> = ({ url }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setError(false);
+        setError("");
         setLoading(true);
         const feed = await fetchFeed(feedPreviewUrl);
         setFeed(feed);
         setLoading(false);
-      } catch {
-        setError(true);
+      } catch (ex: any) {
+        setError(ex.message);
         setLoading(false);
       }
     };
@@ -64,10 +64,10 @@ const FeedPreview: React.FC<FeedPreviewProps> = ({ url }) => {
       )}
       {error && (
         <Center>
-          <Text mt="md">Error occured while fetching feed</Text>
+          <Text mt="md">{error}</Text>
         </Center>
       )}
-      {!error && !loading && feed?.rss && feed.rss.channel.item?.length > 0 && (
+      {!error && !loading && feed?.rss && feed.rss.channel.item && (
         <Group direction="column" spacing="lg" grow>
           <Title order={3}>{feed.rss.channel.title}</Title>
           <List
@@ -79,26 +79,33 @@ const FeedPreview: React.FC<FeedPreviewProps> = ({ url }) => {
               </ThemeIcon>
             }
           >
-            {feed.rss.channel.item
-              ?.slice(
-                activePage * PAGE_SIZE,
-                activePage * PAGE_SIZE + PAGE_SIZE
-              )
-              .map((item) => {
-                return (
-                  <List.Item key={item.guid.__text}>{item.title}</List.Item>
-                );
-              })}
+            {Array.isArray(feed.rss.channel.item) ? (
+              feed.rss.channel.item
+                .slice(
+                  activePage * PAGE_SIZE,
+                  activePage * PAGE_SIZE + PAGE_SIZE
+                )
+                .map((item) => {
+                  return (
+                    <List.Item key={item.guid.__text}>{item.title}</List.Item>
+                  );
+                })
+            ) : (
+              <List.Item key={feed.rss.channel.item.guid.__text}>
+                {feed.rss.channel.item.title}
+              </List.Item>
+            )}
           </List>
-          {feed.rss.channel.item?.length > PAGE_SIZE && (
-            <Pagination
-              grow
-              withControls={false}
-              page={activePage}
-              onChange={setActivePage}
-              total={Math.floor(feed.rss.channel.item.length / PAGE_SIZE)}
-            />
-          )}
+          {Array.isArray(feed.rss.channel.item) &&
+            feed.rss.channel.item.length > PAGE_SIZE && (
+              <Pagination
+                grow
+                withControls={false}
+                page={activePage}
+                onChange={setActivePage}
+                total={Math.floor(feed.rss.channel.item.length / PAGE_SIZE)}
+              />
+            )}
         </Group>
       )}
     </>
