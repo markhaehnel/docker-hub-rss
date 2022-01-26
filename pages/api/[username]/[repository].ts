@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getFilteredTags } from "../../../lib/api/api";
+import { HttpError } from "../../../lib/error";
 import { formatRss } from "../../../lib/formatRss";
 import { parseQuery } from "../../../lib/parseQuery";
 
@@ -27,9 +28,16 @@ const getFeed = async (req: NextApiRequest, res: NextApiResponse) => {
 
     res.setHeader("Content-Type", "text/xml");
     res.send(formatRss(repo, tags));
-  } catch (e: any) {
-    console.error(e);
-    res.status(500).send(e.message);
+  } catch (ex: any) {
+    console.error(ex);
+
+    if (ex instanceof HttpError) {
+      return res
+        .status(ex.statusCode)
+        .json({ status: ex.statusCode, message: ex.message });
+    }
+
+    return res.status(500).json({ status: ex.status, message: ex.message });
   }
 };
 

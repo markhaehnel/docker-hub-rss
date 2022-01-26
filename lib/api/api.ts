@@ -1,4 +1,5 @@
 import fetch from "node-fetch";
+import { HttpError } from "../error";
 import { filterTags } from "../filterTags";
 import { RepositoryResponse, Tag, TagsResponse } from "./types";
 
@@ -12,6 +13,7 @@ const makeGetRequest = async <T>(url: string): Promise<T> => {
   const response = await fetch(url, {
     method: "GET",
   });
+  if (!response.ok) throw new HttpError(response.statusText, response.status);
 
   return response.json() as Promise<T>;
 };
@@ -73,21 +75,33 @@ const getFilteredTags = async (
   exclude: string[],
   includeRegex: string,
   excludeRegex: string
-) => {
-  const [repo, tags] = await Promise.all([
-    getRepository(username, repository),
-    getAllTags(username, repository),
-  ]);
+): Promise<{ repo: RepositoryResponse; tags: Tag[] }> => {
+  try {
+    const [repo, tags] = await Promise.all([
+      getRepository(username, repository),
+      getAllTags(username, repository),
+    ]);
 
-  const filteredTags = filterTags(
-    tags,
-    include,
-    exclude,
-    includeRegex,
-    excludeRegex
-  );
+    const filteredTags = filterTags(
+      tags,
+      include,
+      exclude,
+      includeRegex,
+      excludeRegex
+    );
 
-  return { repo, tags: filteredTags };
+    return { repo, tags: filteredTags };
+  } catch (ex: any) {
+    if (ex instanceof HttpError && ex.statusCode === 404) {
+      throw new HttpError(
+        "User or repository not found",
+        404,
+        ex.internalMessage || ex.message
+      );
+    }
+
+    throw ex;
+  }
 };
 
 export {
