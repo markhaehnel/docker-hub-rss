@@ -14,8 +14,8 @@ jobs:
           node-version: "16"
       - run: npm ci
       - run: npm run lint
-      - run: npm run test
       - run: npm run build
+      - run: npm run test
 
   publish-latest:
     name: Publish app
