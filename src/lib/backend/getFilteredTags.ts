@@ -1,8 +1,9 @@
 import { getRepository } from "./api/repository";
 import { getAllTags } from "./api/tags";
 import { RepositoryResponse, Tag } from "./api/types";
-import { HttpError } from "./error";
+import { HttpError } from "../shared/error";
 import { filterTags } from "./filterTags";
+import { logDebug } from "./logger";
 
 const getFilteredTags = async (
   username: string,
@@ -27,16 +28,16 @@ const getFilteredTags = async (
     );
 
     return { repo, tags: filteredTags };
-  } catch (ex: any) {
-    if (ex instanceof HttpError && ex.statusCode === 404) {
+  } catch (error: any) {
+    if (error instanceof HttpError && error.statusCode === 404) {
       throw new HttpError(
         "User or repository not found",
         404,
-        ex.internalMessage || ex.message
+        error.internalMessage || error.message
       );
     }
 
-    throw ex;
+    throw error;
   }
 };
 export { getFilteredTags };

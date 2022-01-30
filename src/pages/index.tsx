@@ -3,19 +3,20 @@ import { useOs, useHotkeys } from "@mantine/hooks";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import { FeedPreview } from "../components/FeedPreview";
-import Form from "../components/Form";
+import { FeedPreview } from "../components/feedPreview";
+import Form from "../components/form";
 import { useClipboard } from "@mantine/hooks";
 import { useRouter } from "next/router";
-import { buildUrl } from "../lib/utils";
-import { DockerHubFilterParams } from "../lib/types";
+import { buildUrl } from "../lib/ui/buildUrl";
+import { DockerHubFilterParams as DockerHubFilterParameters } from "../lib/ui/types";
 
-type HomeProps = {
-  initialParams: DockerHubFilterParams;
+type HomeProperties = {
+  initialParams: DockerHubFilterParameters;
 };
 
-const Home: NextPage<HomeProps> = ({ initialParams }) => {
-  const [params, setParams] = useState<DockerHubFilterParams>(initialParams);
+const Home: NextPage<HomeProperties> = ({ initialParams }) => {
+  const [parameters, setParameters] =
+    useState<DockerHubFilterParameters>(initialParams);
   const [url, setUrl] = useState("");
   const clipboard = useClipboard();
   const os = useOs();
@@ -25,15 +26,15 @@ const Home: NextPage<HomeProps> = ({ initialParams }) => {
   useHotkeys([["mod+C", () => clipboard.copy(url)]]);
 
   useEffect(() => {
-    setUrl(buildUrl(params));
+    setUrl(buildUrl(parameters));
 
     const urlQuery = new URLSearchParams();
-    Object.entries(params).forEach((x) => {
+    for (const x of Object.entries(parameters)) {
       if (x[1]) urlQuery.append(x[0], x[1]);
-    });
+    }
     router.replace(`/?${urlQuery.toString()}`, undefined, { shallow: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params]);
+  }, [parameters]);
 
   return (
     <>
@@ -53,7 +54,7 @@ const Home: NextPage<HomeProps> = ({ initialParams }) => {
           </Card>
 
           <Card shadow="sm" padding="lg" style={{ width: "100%" }}>
-            <Form initialParams={params} onResultChange={setParams} />
+            <Form initialParams={parameters} onResultChange={setParameters} />
           </Card>
 
           <Card shadow="sm" padding="lg" style={{ width: "100%" }}>
@@ -66,7 +67,7 @@ const Home: NextPage<HomeProps> = ({ initialParams }) => {
                   <Kbd>{os === "macos" ? "⌘" : "Ctrl"}</Kbd> + <Kbd>C</Kbd>
                 </>
               }
-              onFocus={(e) => e.target.select()}
+              onFocus={(error) => error.target.select()}
               value={url}
               readOnly
             />
@@ -81,12 +82,12 @@ const Home: NextPage<HomeProps> = ({ initialParams }) => {
 };
 
 Home.getInitialProps = async ({ query }) => {
-  const initialParams = {
+  const initialParameters = {
     username: "_",
     repository: "mongo",
     ...query,
-  } as DockerHubFilterParams;
-  return { initialParams };
+  } as DockerHubFilterParameters;
+  return { initialParams: initialParameters };
 };
 
 export default Home;

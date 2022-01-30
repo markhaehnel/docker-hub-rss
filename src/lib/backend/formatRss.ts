@@ -13,6 +13,7 @@ const formatRss = (repository: RepositoryResponse, tags: Tag[]) => {
     description,
     site_url: repoBaseUrl,
     feed_url: "",
+    generator: "Docker Hub RSS",
   });
 
   for (const { id, name: tagName, last_updated } of tags) {

@@ -18,7 +18,7 @@ type FeedResponse = {
   };
 };
 
-type DockerHubFilterParams = {
+type DockerHubFilterParameters = {
   username: string;
   repository: string;
   include?: string;
@@ -27,4 +27,7 @@ type DockerHubFilterParams = {
   excludeRegex?: string;
 };
 
-export type { FeedResponse, DockerHubFilterParams };
+export type {
+  FeedResponse,
+  DockerHubFilterParameters as DockerHubFilterParams,
+};

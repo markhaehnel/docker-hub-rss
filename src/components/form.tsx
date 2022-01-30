@@ -1,13 +1,13 @@
 import { Group, TextInput } from "@mantine/core";
 import { useEffect, useState } from "react";
-import { DockerHubFilterParams } from "../lib/types";
+import { DockerHubFilterParams as DockerHubFilterParameters } from "../lib/ui/types";
 
-type FormProps = {
-  initialParams?: DockerHubFilterParams;
-  onResultChange: (params: DockerHubFilterParams) => void;
+type FormProperties = {
+  initialParams?: DockerHubFilterParameters;
+  onResultChange: (parameters: DockerHubFilterParameters) => void;
 };
 
-const Form: React.FC<FormProps> = ({ initialParams, onResultChange }) => {
+const Form: React.FC<FormProperties> = ({ initialParams, onResultChange }) => {
   const [username, setUsername] = useState(initialParams?.username ?? "_");
   const [repository, setRepository] = useState(
     initialParams?.repository ?? "postgres"
@@ -22,7 +22,7 @@ const Form: React.FC<FormProps> = ({ initialParams, onResultChange }) => {
   );
 
   useEffect(() => {
-    const params: DockerHubFilterParams = {
+    const parameters: DockerHubFilterParameters = {
       username,
       repository,
       include,
@@ -30,7 +30,7 @@ const Form: React.FC<FormProps> = ({ initialParams, onResultChange }) => {
       exclude,
       excludeRegex,
     };
-    onResultChange(params);
+    onResultChange(parameters);
   }, [
     onResultChange,
     username,
@@ -50,7 +50,7 @@ const Form: React.FC<FormProps> = ({ initialParams, onResultChange }) => {
           name="username"
           placeholder="_"
           value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={(error) => setUsername(error.target.value)}
           id="username"
         />
         <TextInput
@@ -59,7 +59,7 @@ const Form: React.FC<FormProps> = ({ initialParams, onResultChange }) => {
           name="repository"
           placeholder="prometheus"
           value={repository}
-          onChange={(e) => setRepository(e.target.value)}
+          onChange={(error) => setRepository(error.target.value)}
           id="repository"
         />
       </Group>
@@ -70,7 +70,7 @@ const Form: React.FC<FormProps> = ({ initialParams, onResultChange }) => {
           name="include"
           placeholder="latest,latest-dev"
           value={include}
-          onChange={(e) => setInclude(e.target.value)}
+          onChange={(error) => setInclude(error.target.value)}
           id="include"
         />
         <TextInput
@@ -79,7 +79,7 @@ const Form: React.FC<FormProps> = ({ initialParams, onResultChange }) => {
           name="includeRegex"
           placeholder="v.*"
           value={includeRegex}
-          onChange={(e) => setIncludeRegex(e.target.value)}
+          onChange={(error) => setIncludeRegex(error.target.value)}
           id="includeRegex"
         />
       </Group>
@@ -90,7 +90,7 @@ const Form: React.FC<FormProps> = ({ initialParams, onResultChange }) => {
           name="exclude"
           placeholder="latest,latest-dev"
           value={exclude}
-          onChange={(e) => setExclude(e.target.value)}
+          onChange={(error) => setExclude(error.target.value)}
           id="exclude"
         />
         <TextInput
@@ -99,7 +99,7 @@ const Form: React.FC<FormProps> = ({ initialParams, onResultChange }) => {
           name="excludeRegex"
           placeholder=".*-dev"
           value={excludeRegex}
-          onChange={(e) => setExcludeRegex(e.target.value)}
+          onChange={(error) => setExcludeRegex(error.target.value)}
           id="excludeRegex"
         />
       </Group>

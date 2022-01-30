@@ -3,8 +3,8 @@ class HttpError extends Error {
   readonly internalMessage?: string;
 
   constructor(message: string, statusCode: number, internalMessage?: string) {
-    super();
-    this.message = message;
+    super(message);
+    this.name = "HttpError";
     this.statusCode = statusCode;
     this.internalMessage = internalMessage;
   }

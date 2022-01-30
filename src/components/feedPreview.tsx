@@ -10,16 +10,16 @@ import {
 } from "@mantine/core";
 import { TagIcon } from "@primer/octicons-react";
 import { useEffect, useState } from "react";
-import { FeedResponse } from "../lib/types";
-import { fetchFeed } from "../lib/utils";
+import { FeedResponse } from "../lib/ui/types";
+import { fetchFeed } from "../lib/ui/fetchFeed";
 
-type FeedPreviewProps = {
+type FeedPreviewProperties = {
   url: string;
 };
 
 const PAGE_SIZE = 15;
 
-const FeedPreview: React.FC<FeedPreviewProps> = ({ url }) => {
+const FeedPreview: React.FC<FeedPreviewProperties> = ({ url }) => {
   const [error, setError] = useState("");
   const [feed, setFeed] = useState<FeedResponse>();
   const [loading, setLoading] = useState(false);
@@ -34,8 +34,8 @@ const FeedPreview: React.FC<FeedPreviewProps> = ({ url }) => {
         const feed = await fetchFeed(feedPreviewUrl);
         setFeed(feed);
         setLoading(false);
-      } catch (ex: any) {
-        setError(ex.message);
+      } catch (error_: any) {
+        setError(error_.message);
         setLoading(false);
       }
     };

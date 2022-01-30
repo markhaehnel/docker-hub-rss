@@ -1,7 +1,7 @@
 import {
   TAGS_PAGE_DEFAULT,
   TAGS_PER_PAGE_DEFAULT,
-  buildUrl,
+  buildApiUrl,
   makeGetRequest,
 } from "./base";
 import { Tag, TagsResponse } from "./types";
@@ -12,7 +12,7 @@ const getTags = async (
   page: number = TAGS_PAGE_DEFAULT,
   perPage: number = TAGS_PER_PAGE_DEFAULT
 ): Promise<TagsResponse> => {
-  const requestUrl = buildUrl(
+  const requestUrl = buildApiUrl(
     `repositories/${username}/${repository}/tags?page_size=${perPage}&page=${page}`
   );
   return makeGetRequest<TagsResponse>(requestUrl);
@@ -28,8 +28,8 @@ const getAllTags = async (
   if (firstResponse.count > TAGS_PER_PAGE_DEFAULT) {
     const jobs: Promise<TagsResponse>[] = [];
     const pages = Math.ceil(firstResponse.count / TAGS_PER_PAGE_DEFAULT);
-    for (let i = TAGS_PAGE_DEFAULT + 1; i <= pages; i++) {
-      jobs.push(getTags(username, repository, i));
+    for (let index = TAGS_PAGE_DEFAULT + 1; index <= pages; index++) {
+      jobs.push(getTags(username, repository, index));
     }
 
     pagedResponses.push(...(await Promise.all(jobs)));

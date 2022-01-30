@@ -1,6 +1,4 @@
-import X2JS from "x2js";
-import { HttpError } from "./error";
-import { DockerHubFilterParams, FeedResponse } from "./types";
+import { DockerHubFilterParams as DockerHubFilterParameters } from "./types";
 
 const buildUrl = ({
   username,
@@ -9,7 +7,7 @@ const buildUrl = ({
   exclude,
   includeRegex,
   excludeRegex,
-}: DockerHubFilterParams): string => {
+}: DockerHubFilterParameters): string => {
   // if (!username) throw new Error("'username' cannot be empty");
   // if (!repository) throw new Error("'repository' cannot be empty");
 
@@ -25,14 +23,4 @@ const buildUrl = ({
   return url.toString();
 };
 
-const fetchFeed = async (feedUrl: string): Promise<FeedResponse> => {
-  const response = await fetch(feedUrl);
-  if (!response.ok) {
-    const error = await response.json();
-    throw new HttpError(error.message, error.status);
-  }
-  const body = await response.text();
-  return new X2JS().xml2js(body);
-};
-
-export { buildUrl, fetchFeed };
+export { buildUrl };
