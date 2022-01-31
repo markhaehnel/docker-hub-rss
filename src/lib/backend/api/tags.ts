@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 import {
   TAGS_PAGE_DEFAULT,
   TAGS_PER_PAGE_DEFAULT,
@@ -17,6 +19,8 @@ const getTags = async (
   );
   return makeGetRequest<TagsResponse>(requestUrl);
 };
+
+dayjs.extend(utc);
 
 const getAllTags = async (
   username: string,
@@ -43,8 +47,8 @@ const getAllTags = async (
     if (b.name === "latest") return 1;
 
     return (
-      new Date(b.tag_last_pushed).getTime() -
-      new Date(a.tag_last_pushed).getTime()
+      dayjs.utc(b.tag_last_pushed).valueOf() -
+      dayjs.utc(a.tag_last_pushed).valueOf()
     );
   });
 

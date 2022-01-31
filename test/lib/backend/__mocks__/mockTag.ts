@@ -1,13 +1,20 @@
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 import { Tag } from "../../../../src/lib/backend/api/types";
 
+dayjs.extend(utc);
+
 const getMockTag = (name: string = "latest", dayOffset: number = 0): Tag => {
-  const now = new Date(2022, 1, 1 + dayOffset, 12, 30, 45, 0);
+  const date = dayjs
+    .utc(`2022-02-01T12:30:45.00000Z`)
+    .date(1 + dayOffset)
+    .toISOString();
 
   return {
     creator: 0,
     id: 0,
     images: [],
-    last_updated: now,
+    last_updated: date,
     last_updater: 0,
     last_updater_username: "docker-hub-rss-bot",
     name: name,
@@ -15,8 +22,8 @@ const getMockTag = (name: string = "latest", dayOffset: number = 0): Tag => {
     full_size: 0,
     v2: true,
     tag_status: "active",
-    tag_last_pulled: now,
-    tag_last_pushed: now,
+    tag_last_pulled: date,
+    tag_last_pushed: date,
   };
 };
 

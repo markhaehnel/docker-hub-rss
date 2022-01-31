@@ -1,4 +1,8 @@
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 import { RepositoryResponse } from "../../../../src/lib/backend/api/types";
+
+dayjs.extend(utc);
 
 const mockRepositoryResponse: RepositoryResponse = {
   can_edit: false,
@@ -10,7 +14,7 @@ const mockRepositoryResponse: RepositoryResponse = {
   is_automated: false,
   is_migrated: false,
   is_private: false,
-  last_updated: new Date(2022, 1, 1, 12, 30, 15),
+  last_updated: "2022-02-01T12:30:45.00000Z",
   name: "prometheus",
   namespace: "prom",
   permissions: {

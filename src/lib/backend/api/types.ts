@@ -8,8 +8,8 @@ type Image = {
   os_version: string;
   size: number;
   status: string;
-  last_pulled: Date;
-  last_pushed: Date;
+  last_pulled: string;
+  last_pushed: string;
 };
 
 type Tag = {
@@ -17,7 +17,7 @@ type Tag = {
   id: number;
   image_id?: string;
   images: Image[];
-  last_updated: Date;
+  last_updated: string;
   last_updater: number;
   last_updater_username: string;
   name: string;
@@ -25,8 +25,8 @@ type Tag = {
   full_size: number;
   v2: boolean;
   tag_status: string;
-  tag_last_pulled: Date;
-  tag_last_pushed: Date;
+  tag_last_pulled: string;
+  tag_last_pushed: string;
 };
 
 type TagsResponse = {
@@ -47,7 +47,7 @@ type RepositoryResponse = {
   is_automated: boolean;
   is_migrated: boolean;
   is_private: boolean;
-  last_updated: Date;
+  last_updated: string;
   name: string;
   namespace: string;
   permissions: {
