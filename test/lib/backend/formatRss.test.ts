@@ -8,7 +8,7 @@ import {
 
 describe("formatRss", () => {
   beforeAll(() => {
-    jest.useFakeTimers().setSystemTime(Date.UTC(2022, 1, 31));
+    jest.useFakeTimers().setSystemTime(Date.UTC(2022, 1, 31, 12, 30, 45, 0));
   });
 
   afterAll(() => {

@@ -1,7 +1,7 @@
 import { Tag } from "../../../../src/lib/backend/api/types";
 
 const getMockTag = (name: string = "latest", dayOffset: number = 0): Tag => {
-  const now = new Date(2022, 1, 1 + dayOffset, 12, 30, 45);
+  const now = new Date(2022, 1, 1 + dayOffset, 12, 30, 45, 0);
 
   return {
     creator: 0,
