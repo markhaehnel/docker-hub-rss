@@ -15,8 +15,6 @@ describe("formatRss", () => {
     jest.useRealTimers();
   });
 
-  afterAll(() => {});
-
   test("should return valid RSS feed xml when given tags", () => {
     const actualValue = formatRss(mockRepositoryResponse, getMockTags());
 
