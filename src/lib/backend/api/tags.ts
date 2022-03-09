@@ -3,9 +3,9 @@ import utc from "dayjs/plugin/utc";
 import {
   TAGS_PAGE_DEFAULT,
   TAGS_PER_PAGE_DEFAULT,
-  buildApiUrl,
   makeGetRequest,
 } from "./base";
+import { buildApiUrl } from "./buildApiUrl";
 import { Tag, TagsResponse } from "./types";
 
 const getTags = async (

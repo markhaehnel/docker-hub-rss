@@ -1,4 +1,5 @@
-import { buildApiUrl, makeGetRequest } from "./base";
+import { makeGetRequest } from "./base";
+import { buildApiUrl } from "./buildApiUrl";
 import { RepositoryResponse } from "./types";
 
 const getRepository = async (

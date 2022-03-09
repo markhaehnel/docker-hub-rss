@@ -1,5 +1,7 @@
 import { HttpError } from "../../shared/error";
 import superagent from "superagent";
+import { getCachedValue } from "../getCachedValue";
+import { logDebug } from "../logger";
 
 const API_BASE_URL = "https://hub.docker.com";
 const API_VERSION = "v2";
@@ -9,19 +11,21 @@ const TAGS_PER_PAGE_DEFAULT = 100;
 
 const makeGetRequest = async <T>(url: string): Promise<T> => {
   try {
-    const response = await superagent.get(url).retry(2);
-    return JSON.parse(response.text) as Promise<T>;
+    logDebug(`Getting ${url}`);
+    const result = await getCachedValue<T>(url, async () => {
+      logDebug(`fetchFunction running`);
+
+      const response = await superagent.get(url).retry(2);
+      return JSON.parse(response.text) as Promise<T>;
+    });
+
+    return result;
   } catch (error: any) {
     throw new HttpError(error.text, error.status);
   }
 };
 
-const buildApiUrl = (path: string): string => {
-  return `${API_BASE_URL}/${API_VERSION}/${path}`;
-};
-
 export {
-  buildApiUrl,
   makeGetRequest,
   TAGS_PAGE_DEFAULT,
   TAGS_PER_PAGE_DEFAULT,
