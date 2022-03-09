@@ -1,4 +1,4 @@
-import { makeGetRequest } from "./base";
+import { makeGetRequest } from "./makeGetRequest";
 import { buildApiUrl } from "./buildApiUrl";
 import { RepositoryResponse } from "./types";
 

@@ -1,10 +1,7 @@
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
-import {
-  TAGS_PAGE_DEFAULT,
-  TAGS_PER_PAGE_DEFAULT,
-  makeGetRequest,
-} from "./base";
+import { TAGS_PAGE_DEFAULT, TAGS_PER_PAGE_DEFAULT } from "./base";
+import { makeGetRequest } from "./makeGetRequest";
 import { buildApiUrl } from "./buildApiUrl";
 import { Tag, TagsResponse } from "./types";
 

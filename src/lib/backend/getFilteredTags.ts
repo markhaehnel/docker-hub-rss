@@ -3,7 +3,6 @@ import { getAllTags } from "./api/tags";
 import { RepositoryResponse, Tag } from "./api/types";
 import { HttpError } from "../shared/error";
 import { filterTags } from "./filterTags";
-import { logDebug } from "./logger";
 
 const getFilteredTags = async (
   username: string,

@@ -5,6 +5,8 @@ import * as filterTags from "../../../src/lib/backend/filterTags";
 import { getMockTags } from "./__mocks__/mockTag";
 import { mockRepositoryResponse } from "./__mocks__/mockRepositoryResponse";
 
+jest.mock("ioredis");
+
 describe("getFilteredTags", () => {
   beforeEach(() => {
     // @ts-ignore
