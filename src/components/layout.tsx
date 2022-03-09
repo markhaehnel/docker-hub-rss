@@ -1,5 +1,5 @@
 import { ActionIcon, AppShell, Group, Header, Text } from "@mantine/core";
-import { MarkGithubIcon, QuestionIcon, RssIcon } from "@primer/octicons-react";
+import { MarkGithubIcon, RssIcon } from "@primer/octicons-react";
 import Head from "next/head";
 import Link from "next/link";
 
@@ -29,7 +29,7 @@ const Layout: React.FC = ({ children }) => {
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
-        <meta charSet="utf-8" />
+        <meta charSet="utf8" />
         <meta
           name="description"
           content="RSS feeds for Docker Hub images. Subscribe using Slack RSS, Feedly, or any other RSS feed reader to get notified when a new image is published."
