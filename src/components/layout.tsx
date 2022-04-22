@@ -49,7 +49,7 @@ const Layout: React.FC = ({ children }) => {
         header={
           <Header
             height={70}
-            padding="md"
+            p="md"
             styles={{
               top: 0,
               left: 0,

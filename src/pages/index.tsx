@@ -43,7 +43,7 @@ const Home: NextPage<HomeProperties> = ({ initialParams }) => {
       </Head>
       <div style={{ maxWidth: 640, width: "100%", margin: "auto" }}>
         <Group direction="column" position="center">
-          <Card shadow="sm" padding="lg">
+          <Card shadow="sm" p="lg">
             <Title>Why use Docker Hub RSS?</Title>
             <Text mt="sm" size="sm">
               Docker Hub doesn&apos;t provide notifications for new image
@@ -53,11 +53,11 @@ const Home: NextPage<HomeProperties> = ({ initialParams }) => {
             </Text>
           </Card>
 
-          <Card shadow="sm" padding="lg" style={{ width: "100%" }}>
+          <Card shadow="sm" p="lg" style={{ width: "100%" }}>
             <Form initialParams={parameters} onResultChange={setParameters} />
           </Card>
 
-          <Card shadow="sm" padding="lg" style={{ width: "100%" }}>
+          <Card shadow="sm" p="lg" style={{ width: "100%" }}>
             <TextInput
               label="Feed URL"
               description="Subscribe to this feed"
@@ -74,7 +74,7 @@ const Home: NextPage<HomeProperties> = ({ initialParams }) => {
               readOnly
             />
           </Card>
-          <Card shadow="sm" padding="lg" style={{ width: "100%" }}>
+          <Card shadow="sm" p="lg" style={{ width: "100%" }}>
             <FeedPreview url={url} />
           </Card>
         </Group>

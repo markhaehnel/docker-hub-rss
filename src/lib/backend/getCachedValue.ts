@@ -25,7 +25,7 @@ const getCachedValue = async <T>(
 
   logDebug(`No cache entry found for ${normalizedKey}`);
   const data = await fetchFunction();
-  await redis.set(normalizedKey, JSON.stringify(data), "ex", 600);
+  await redis.set(normalizedKey, JSON.stringify(data), "EX", 600);
 
   return data;
 };
