@@ -1,10 +1,11 @@
-import type { AppProps } from "next/app";
 import {
   ColorScheme,
   ColorSchemeProvider,
   MantineProvider,
 } from "@mantine/core";
 import { useLocalStorageValue } from "@mantine/hooks";
+import type { AppProps } from "next/app";
+import Head from "next/head";
 import Layout from "../components/layout";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -18,6 +19,18 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <>
+      <Head>
+        (NEXT_PUBLIC_UMAMI_WEBSITE_ID && process.env.NEXT_PUBLIC_UMAMI_SCRIPT)
+        &&{" "}
+        <script
+          async
+          defer
+          data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
+          src={process.env.NEXT_PUBLIC_UMAMI_SCRIPT}
+          data-do-not-track="true"
+        ></script>
+      </Head>
+
       <ColorSchemeProvider
         colorScheme={colorScheme}
         toggleColorScheme={toggleColorScheme}
