@@ -63,9 +63,11 @@ const Home: NextPage<HomeProperties> = ({ initialParams }) => {
               description="Subscribe to this feed"
               rightSectionWidth={80}
               rightSection={
-                <>
-                  <Kbd>{os === "macos" ? "⌘" : "Ctrl"}</Kbd> + <Kbd>C</Kbd>
-                </>
+                typeof window === "undefined" && (
+                  <>
+                    <Kbd>{os === "macos" ? "⌘" : "Ctrl"}</Kbd> + <Kbd>C</Kbd>
+                  </>
+                )
               }
               onFocus={(error) => error.target.select()}
               value={url}
