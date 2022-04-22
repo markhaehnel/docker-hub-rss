@@ -63,7 +63,7 @@ const Home: NextPage<HomeProperties> = ({ initialParams }) => {
               description="Subscribe to this feed"
               rightSectionWidth={80}
               rightSection={
-                typeof window === "undefined" && (
+                typeof window !== "undefined" && (
                   <>
                     <Kbd>{os === "macos" ? "⌘" : "Ctrl"}</Kbd> + <Kbd>C</Kbd>
                   </>
