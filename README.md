@@ -1,7 +1,5 @@
 # Docker Hub RSS
 
-[Website](https://docker-hub-rss.ezhub.de)
-
 > Docker Hub doesn't provide notifications for new image releases, so Docker Hub RSS turns image tags into an RSS feed for easy consumption. Subscribe using Slack RSS, Feedly, or any other RSS feed reader to get notified when a new image is published.
 
 ## Usage
